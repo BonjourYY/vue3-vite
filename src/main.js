@@ -1,18 +1,21 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-
-import router from './router';
-import Button from '@/components/Button.vue';
 import './assets/main.css';
+import ChildComponent from './views/ChildCom.vue';
+import BlogPost from './views/BlogPost.vue';
 
-const app1 = createApp(App);
+const app = createApp(App);
 
-app1.use(router);
 // 配置应用级的选项
-app1.config.errorHandler = function (err) {
-  console.log(err);
-  console.log('捕获错误');
+app.config.errorHandler = function (err) {
+  console.error(err);
+  console.error('捕获错误');
 };
-// 注册应用范围内的组件
-app1.component('my-button', Button);
-app1.mount('#app');
+
+// 注册全局组件
+app.component('ChildComponent', ChildComponent).component('BlogPost', BlogPost);
+
+console.log(app.version);
+
+// 挂载
+app.mount('#app');

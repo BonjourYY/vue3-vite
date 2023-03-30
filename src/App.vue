@@ -1,10 +1,19 @@
 <script setup>
 import { ref } from 'vue';
-const attributeName = ref('class');
+
+// const valueObj = ref({
+//   titleValue: null,
+//   nameValue: null,
+// });
+
+const titleValue = ref(null);
+const nameValue = ref(null);
 </script>
 
 <template>
-  <p :[`foo${attributeName}`]="'text'">Hello World!</p>
+  <BlogPost v-model:title="titleValue" v-model:name="nameValue"></BlogPost>
+  <p>{{ titleValue }}</p>
+  <p>{{ nameValue }}</p>
 </template>
 
 <style scoped></style>
