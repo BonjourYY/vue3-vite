@@ -1,15 +1,15 @@
 todo:
 
 <!-- 1. 一次性导入所有图片(获取指定图片) -->
-<!-- 2. 压缩图片 -->
-<!-- 3. NVM -->
 <!-- 4. OSS -->
 
-4. 地图
-5. Taildwind.css
-6. womexiznai
-7. haiyoujiushi
-8. 他其实大部分的算力都存储在我们本地的文件夹里面，所以我大部分的时间都是在美丽的里面进行工作
-9. 还有一个点就是，我能不能在 Win 的电脑上同步 Mac 的内容呢？
-10. 不能自动保存吗
-11. 属性透传 在 模板表达式中的 $attrs 无法显示 事件侦听器的透传
+- TypeScript
+- ESLint
+- Prettier
+- VueUse
+- VueRouter
+- Pinia
+- Vitest
+- Taildwind.css
+- Vitest
+- Cypress

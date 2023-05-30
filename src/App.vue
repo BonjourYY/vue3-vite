@@ -1,19 +1,8 @@
-<script setup>
-import { ref } from 'vue';
-
-// const valueObj = ref({
-//   titleValue: null,
-//   nameValue: null,
-// });
-
-const titleValue = ref(null);
-const nameValue = ref(null);
-</script>
+<script setup></script>
 
 <template>
-  <BlogPost v-model:title="titleValue" v-model:name="nameValue"></BlogPost>
-  <p>{{ titleValue }}</p>
-  <p>{{ nameValue }}</p>
+  <button @click="$router.replace({ path: '/user/age' })">Click to Nav</button>
+  <RouterView></RouterView>
 </template>
 
 <style scoped></style>
