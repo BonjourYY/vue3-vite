@@ -1,11 +1,12 @@
 <script setup>
 import { onBeforeRouteUpdate } from 'vue-router';
-
-defineProps(['name']);
+onBeforeRouteUpdate(() => {
+  console.log('beforeRouteUpdate');
+});
 </script>
 
 <template>
-  <p>Name:{{ name }}</p>
+  <p>Login Page</p>
 </template>
 
 <style lang="scss" scoped>

@@ -1,7 +1,14 @@
-<script setup></script>
+<script setup>
+defineProps(['age']);
+</script>
 
 <template>
-  <p>UserAge</p>
+  <p>Age:{{ age }}</p>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+p {
+  font-size: 20px;
+  color: yellowgreen;
+}
+</style>

@@ -46,7 +46,7 @@ export default defineConfig({
     environment: 'happy-dom',
   },
   plugins: [
-    VueDevtools(),
+    // VueDevtools(),
     vue({
       template: {
         compilerOptions: {
