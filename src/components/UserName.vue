@@ -5,14 +5,8 @@ console.log(result);
 </script>
 
 <template>
-  <div class="body">
-    <div class="about">
-      <p class="red">我是谁</p>
-    </div>
-  </div>
-  <img src="../assets/image/bmw.png" alt="" />
-  <img src="/src/assets/image/bmw.png" alt="" />
-  <img src="/favicon.ico" alt="" />
+  <p>JackFan</p>
+  <img src="/favicon.ico" alt="icon" />
 </template>
 
 <style lang="scss" scoped></style>

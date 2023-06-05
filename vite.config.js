@@ -9,7 +9,6 @@ import { resolve } from 'node:path';
 import copy from 'rollup-plugin-copy';
 
 export default defineConfig({
-  base: '/myproject',
   build: {
     // lib: {
     //   entry: resolve(__dirname, 'lib/main.js'),
@@ -32,7 +31,6 @@ export default defineConfig({
     cssCodeSplit: false,
   },
   server: {
-    port: '5133',
     proxy: {
       '/data': {
         target: 'https://jsonplaceholder.typicode.com/todos',

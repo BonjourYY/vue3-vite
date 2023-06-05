@@ -16,6 +16,14 @@ const routes = [
           },
         },
       },
+      {
+        path: 'hobby',
+        components: {
+          default: () => {
+            return import('@/components/UserHobby.vue');
+          },
+        },
+      },
     ],
   },
 ];
