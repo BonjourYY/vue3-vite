@@ -1,7 +1,7 @@
 <script setup>
-const response = await fetch('/data', { method: 'GET' });
-const result = await response.json();
-console.log(result);
+// const response = await fetch('/data', { method: 'GET' });
+// const result = await response.json();
+// console.log(result);
 </script>
 
 <template>
