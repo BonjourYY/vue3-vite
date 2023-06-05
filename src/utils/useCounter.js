@@ -10,4 +10,4 @@ function useCounter() {
   };
 }
 
-export { useCounter };
+export default useCounter;

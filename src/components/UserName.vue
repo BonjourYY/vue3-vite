@@ -1,16 +1,18 @@
 <script setup>
-import { onBeforeRouteUpdate } from 'vue-router';
-
-defineProps(['name']);
+const response = await fetch('/data', { method: 'GET' });
+const result = await response.json();
+console.log(result);
 </script>
 
 <template>
-  <p>Name:{{ name }}</p>
+  <div class="body">
+    <div class="about">
+      <p class="red">我是谁</p>
+    </div>
+  </div>
+  <img src="../assets/image/bmw.png" alt="" />
+  <img src="/src/assets/image/bmw.png" alt="" />
+  <img src="/favicon.ico" alt="" />
 </template>
 
-<style lang="scss" scoped>
-p {
-  font-size: 20px;
-  color: yellowgreen;
-}
-</style>
+<style lang="scss" scoped></style>

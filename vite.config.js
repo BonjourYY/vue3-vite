@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig, path } from 'vite';
 import VueDevtools from 'vite-plugin-vue-devtools';
+import vue from '@vitejs/plugin-vue';
 // 导入压缩图片插件
 // import imagemin from 'unplugin-imagemin/vite';
 import legacy from '@vitejs/plugin-legacy';
@@ -9,7 +9,7 @@ import { resolve } from 'node:path';
 import copy from 'rollup-plugin-copy';
 
 export default defineConfig({
-  // base: process.env.VITE_OBS_URL,
+  base: '/myproject',
   build: {
     // lib: {
     //   entry: resolve(__dirname, 'lib/main.js'),
@@ -19,8 +19,20 @@ export default defineConfig({
     //   //   images: ['src/assets/image/*.png'],
     //   // },
     // },
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+      },
+      output: {
+        manualChunks: {
+          NameAndAge: ['./src/components/UserName.vue'],
+        },
+      },
+    },
+    cssCodeSplit: false,
   },
   server: {
+    port: '5133',
     proxy: {
       '/data': {
         target: 'https://jsonplaceholder.typicode.com/todos',
@@ -46,7 +58,7 @@ export default defineConfig({
     environment: 'happy-dom',
   },
   plugins: [
-    // VueDevtools(),
+    { ...VueDevtools(), apply: 'serve' },
     vue({
       template: {
         compilerOptions: {
@@ -76,9 +88,9 @@ export default defineConfig({
     //     },
     //   },
     // }),
-    // legacy({
-    //   targets: ['defaults', 'not IE 11'],
-    // }),
+    legacy({
+      targets: ['defaults', 'not IE 11'],
+    }),
     // splitVendorChunkPlugin(),
   ],
   resolve: {
@@ -87,6 +99,14 @@ export default defineConfig({
       components: fileURLToPath(new URL('./src/components', import.meta.url)),
       '@obs': 'https://prod-xrender-market-static.obs.myhuaweicloud.com/xrender',
       // '@image': 'https://prod-xrender-market-static.obs.myhuaweicloud.com/xrender',
+    },
+  },
+  experimental: {
+    renderBuiltUrl(fileName, { hostId, hostType, type }) {
+      console.log(fileName, hostId, hostType, type);
+      if (type === 'public') {
+        return 'https://www.baidu.com/' + fileName;
+      }
     },
   },
 });

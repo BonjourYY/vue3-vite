@@ -7,12 +7,6 @@ const removeQueryParams = function (to, from) {
 const routes = [
   {
     path: '/',
-    components: {
-      default: () => {
-        return import('@/page/HomePage.vue');
-      },
-    },
-    meta: { requireAuth1: true },
     children: [
       {
         path: 'name',
@@ -21,19 +15,6 @@ const routes = [
             return import('@/components/UserName.vue');
           },
         },
-        // 路由独享守卫
-        beforeEnter: [removeQueryParams],
-        meta: { requireAuth2: true },
-      },
-      {
-        path: 'login/:name',
-        name: 'userlogin',
-        components: {
-          default: () => {
-            return import('@/components/UserLogin.vue');
-          },
-        },
-        beforeEnter: [removeQueryParams],
       },
     ],
   },

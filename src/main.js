@@ -16,7 +16,7 @@ app.config.errorHandler = function (err) {
 };
 
 // 全局依赖注入
-app.provide('author', ref('Jack Fan'));
+// app.provide('author', ref('Jack Fan'));
 
 console.log(version);
 // 挂载
