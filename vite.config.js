@@ -1,110 +1,74 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig, path } from 'vite';
-import VueDevtools from 'vite-plugin-vue-devtools';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-// 导入压缩图片插件
+import VueDevtools from 'vite-plugin-vue-devtools';
 // import imagemin from 'unplugin-imagemin/vite';
 import legacy from '@vitejs/plugin-legacy';
 import { resolve } from 'node:path';
-import copy from 'rollup-plugin-copy';
 
-export default defineConfig({
-  build: {
-    // lib: {
-    //   entry: resolve(__dirname, 'lib/main.js'),
-    //   name: 'MyLib',
-    //   fileName: 'my-lib',
-    //   // manualChunks: {
-    //   //   images: ['src/assets/image/*.png'],
-    //   // },
-    // },
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-      },
-      output: {
-        manualChunks: {
-          NameAndAge: ['./src/components/UserName.vue'],
+export default defineConfig(({ command, mode }) => {
+  return {
+    build: {
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, 'index.html'),
         },
       },
     },
-    cssCodeSplit: false,
-  },
-  server: {
-    proxy: {
-      '/data': {
-        target: 'https://jsonplaceholder.typicode.com/todos',
-        changeOrigin: true,
-        ws: true,
-        rewrite: (path) => path.replace(/^\/data/, ''),
-      },
-      '/img': {
-        target: 'https://prod-xrender-market-static.obs.cn-east-3.myhuaweicloud.com/xrender/latest-activity/async-component',
-        changeOrigin: true,
-        ws: true,
-        rewrite: (path) => path.replace(/^\/img/, ''),
+    server: {},
+    css: {
+      modules: {
+        localsConvention: 'camelCaseOnly',
       },
     },
-  },
-  css: {
-    modules: {
-      localsConvention: 'camelCaseOnly',
+    test: {
+      globals: true,
+      environment: 'happy-dom',
     },
-  },
-  test: {
-    globals: true,
-    environment: 'happy-dom',
-  },
-  plugins: [
-    { ...VueDevtools(), apply: 'serve' },
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement(tag) {
-            return tag.startsWith('ion-');
+    plugins: [
+      { ...VueDevtools(), apply: 'serve' },
+      vue({
+        template: {
+          compilerOptions: {
+            isCustomElement(tag) {
+              return tag.startsWith('ion-');
+            },
           },
         },
+      }),
+      // imagemin({
+      //   mode: 'squoosh',
+      //   compress: {
+      //     jpg: {
+      //       quality: 0,
+      //     },
+      //     jpeg: {
+      //       quality: 70,
+      //     },
+      //     png: {
+      //       quality: 70,
+      //     },
+      //     webp: {
+      //       quality: 70,
+      //     },
+      //   },
+      // }),
+      legacy({
+        targets: ['defaults', 'not IE 11'],
+      }),
+    ],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
-    }),
-    // copy({
-    //   targets: [{ src: '/public/assets', dest: 'dist/assets' }],
-    // }),
-    // imagemin({
-    //   mode: 'squoosh',
-    //   compress: {
-    //     jpg: {
-    //       quality: 0,
-    //     },
-    //     jpeg: {
-    //       quality: 70,
-    //     },
-    //     png: {
-    //       quality: 70,
-    //     },
-    //     webp: {
-    //       quality: 70,
-    //     },
-    //   },
-    // }),
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-    }),
-    // splitVendorChunkPlugin(),
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      components: fileURLToPath(new URL('./src/components', import.meta.url)),
-      '@obs': 'https://prod-xrender-market-static.obs.myhuaweicloud.com/xrender',
-      // '@image': 'https://prod-xrender-market-static.obs.myhuaweicloud.com/xrender',
     },
-  },
-  experimental: {
-    renderBuiltUrl(fileName, { hostId, hostType, type }) {
-      console.log(fileName, hostId, hostType, type);
-      if (type === 'public') {
-        return 'https://www.baidu.com/' + fileName;
-      }
+    experimental: {
+      renderBuiltUrl(fileName, { hostId, hostType, type }) {
+        console.log(fileName, hostId, hostType, type);
+        if (type === 'public') {
+          return 'https://www.baidu.com/' + fileName;
+        }
+      },
     },
-  },
+  };
 });

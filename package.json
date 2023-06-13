@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite --open --force",
+    "dev:custom": "vite --open --force --config vite.custom.config.js",
     "build": "vite build",
+    "build:custom": "vite build --config vite.custom.config.js",
     "preview": "vite preview --host",
     "test": "vitest"
   },
