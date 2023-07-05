@@ -1,7 +1,10 @@
 <script setup>
-import { CheckIcon } from "@heroicons/vue/20/solid";
+import RoycoTypography from "./components/RoycoTypography.vue";
 </script>
 
-<template></template>
+<template>
+  <RoycoTypography variant="body1">Body1</RoycoTypography>
+  <RoycoTypography variant="headline1">Headline1</RoycoTypography>
+</template>
 
 <style scoped></style>
