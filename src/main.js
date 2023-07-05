@@ -1,7 +1,8 @@
-import { createApp, ref, version } from 'vue';
+import { createApp, version } from 'vue';
 import './style.css';
 import App from './App.vue';
 import router from './router/router';
+import pinia from './stores/store';
 
 // 创建应用实例
 const app = createApp(App);
@@ -9,8 +10,11 @@ const app = createApp(App);
 // 使用路由
 app.use(router);
 
+// 使用状态管理
+app.use(pinia);
+
 // 配置应用级的选项
-app.config.errorHandler = function (err) {
+app.config.errorHandler = (err) => {
   console.error(err);
   console.error('捕获错误');
 };

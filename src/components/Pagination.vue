@@ -2,9 +2,18 @@
   <div class="pagination">
     <a @click="changePage(false)" href="javascript:;">上一页</a>
     <span v-if="currentPage > 3">...</span>
-    <a @click="changePage(item)" href="javascript:;" :class="{ active: currentPage === item }" v-for="item in list" :key="item">{{ item }}</a>
+    <a
+      @click="changePage(item)"
+      href="javascript:;"
+      :class="{ active: currentPage === item }"
+      v-for="item in list"
+      :key="item"
+      >{{ item }}</a
+    >
     <span v-if="currentPage < pages - 2">...</span>
-    <a @click="changePage(true)" href="javascript:;" :class="{ disabled: currentPage === pages }">下一页</a>
+    <a @click="changePage(true)" href="javascript:;" :class="{ disabled: currentPage === pages }"
+      >下一页</a
+    >
   </div>
 </template>
 <script>
@@ -13,12 +22,12 @@ import { computed, ref } from 'vue';
 export default {
   name: 'Pagination',
   props: {
-    //数据总条数
+    // 数据总条数
     total: {
       type: Number,
       default: 80,
     },
-    //每页数据条数
+    // 每页数据条数
     pagesize: {
       type: Number,
       default: 8,
@@ -92,7 +101,12 @@ export default {
       }
       emit('change-page', currentPage.value);
     };
-    return { list, currentPage, pages, changePage };
+    return {
+      list,
+      currentPage,
+      pages,
+      changePage,
+    };
   },
 };
 </script>

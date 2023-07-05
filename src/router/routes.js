@@ -11,17 +11,13 @@ const routes = [
       {
         path: 'name',
         components: {
-          default: () => {
-            return import('@/components/UserName.vue');
-          },
+          default: () => import('@/components/UserName.vue'),
         },
       },
       {
         path: 'hobby',
         components: {
-          default: () => {
-            return import('@/components/UserHobby.vue');
-          },
+          default: () => import('@/components/UserHobby.vue'),
         },
       },
     ],

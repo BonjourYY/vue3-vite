@@ -1,112 +1,65 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
-  // 数据总条数
-  total: {
+  maxVisibleButtons: {
     type: Number,
     required: true,
-    default: () => {
-      return 80;
-    },
+    default: () => 3,
   },
-  // 每页数据条数
-  pageSize: {
+  totalPages: {
     type: Number,
     required: true,
-    default: () => {
-      return 10;
-    },
+  },
+  perPage: {
+    type: Number,
+    required: true,
+  },
+  currentPage: {
+    type: Number,
+    required: true,
   },
 });
+// 循环开始的页码
+const startPage = computed(() => {
+  if (props.currentPage === 1) {
+    return 1;
+  }
 
-const emits = defineEmits(['changePage']);
+  if (props.currentPage === props.totalPages) {
+    return props.totalPages - props.maxVisibleButtons;
+  }
 
-// 动态计算总页数
+  return props.currentPage - 1;
+});
+
+// 循环列表
 const pages = computed(() => {
-  return Math.ceil(props.total / props.pageSize);
-});
-
-console.log(pages.value);
-
-const currentPage = ref(4);
-
-const list = computed(() => {
-  const result = [];
-  // 当总页数小于等于5
-  if (pages.value <= 5) {
-    for (let i = 1; i <= pages.value; i++) {
-      result.push(i);
-    }
-  } else if (currentPage.value <= 2) {
-    // 当前页处于前两位，展示前5个页码
-    for (let i = 1; i <= 5; i++) {
-      result.push(i);
-    }
-  } else if (currentPage.value >= pages.value - 1) {
-    // 当前页处于后两位，展示后5个页码
-    for (let i = pages.value - 4; i <= pages.value; i++) {
-      result.push(i);
-    }
-  } else {
-    // 当前页处于中间位置，以中间位置为中间点，展示左右两边
-    for (let i = currentPage.value - 2; i <= currentPage.value + 2; i++) {
-      result.push(i);
-    }
+  const range = [];
+  for (let i = startPage; i.value < array.length; index++) {
+    const element = array[index];
   }
-  return result;
 });
-
-const changePage = (type) => {
-  if (type === false) {
-    if (currentPage.value === 1) {
-      return;
-    }
-    if (currentPage.value > 1) {
-      currentPage.value -= 1;
-    }
-  } else if (type === true) {
-    if (currentPage.value === pages.value) {
-      return;
-    }
-    if (currentPage.value < pages.value) {
-      currentPage.value += 1;
-    }
-  } else {
-    currentPage.value = type;
-  }
-  emits('changePage', currentPage.value);
-};
-
-console.log(list.value);
 </script>
 
 <template>
-  <div class="pagination">
-    <span href="" @click="changePage(false)">上一页</span>
-    <span>...</span>
-    <span href="" :class="{ active: currentPage === item }" @click="changePage(item)" v-for="(item, index) in list" :key="index">{{ item }}</span>
-    <span>...</span>
-    <span href="" :class="{ disabled: currentPage === pages }" @click="changePage(true)">下一页</span>
-  </div>
+  <ul>
+    <li>
+      <button type="button">First</button>
+    </li>
+    <li>
+      <button type="button">Previous</button>
+    </li>
+    <li>
+      <button type="button">First</button>
+    </li>
+    <li>
+      <button type="button">Next</button>
+    </li>
+    <li>
+      <button type="button">Last</button>
+    </li>
+  </ul>
 </template>
 
-<style lang="scss" scoped>
-.pagination {
-  display: flex;
-  justify-content: center;
-  > span {
-    padding: 5px;
-  }
-  > span.active {
-    color: red;
-  }
-  > span.disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-    &:hover {
-      color: #333;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>

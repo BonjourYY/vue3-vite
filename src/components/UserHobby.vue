@@ -1,5 +1,6 @@
 <script setup>
 import Page from '@/components/Pagination copy.vue';
+
 const changePageHandler = (currentPage) => {
   console.log(currentPage);
 };
