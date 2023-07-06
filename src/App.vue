@@ -1,10 +1,13 @@
 <script setup>
-import RoycoTypography from "./components/RoycoTypography.vue";
+import { ref } from "vue";
+import RoycoSwitch from "./components/RoycoSwitch.vue";
+
+const result = ref(false);
 </script>
 
 <template>
-  <RoycoTypography variant="body1">Body1</RoycoTypography>
-  <RoycoTypography variant="headline1">Headline1</RoycoTypography>
+  <RoycoSwitch v-model="result"></RoycoSwitch>
+  {{ result }}
 </template>
 
 <style scoped></style>
