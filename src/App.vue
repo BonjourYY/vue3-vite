@@ -1,13 +1,14 @@
 <script setup>
-import { ref } from "vue";
-import RoycoSwitch from "./components/RoycoSwitch.vue";
-
-const result = ref(false);
+import RoycoCheckboxGroup from "./components/RoycoCheckboxGroup.vue";
+import RoycoSpace from "./components/RoycoSpace.vue";
 </script>
 
 <template>
-  <RoycoSwitch v-model="result"></RoycoSwitch>
-  {{ result }}
+  <RoycoCheckboxGroup></RoycoCheckboxGroup>
+  <RoycoSpace>
+    <p>name</p>
+    <p>male</p>
+  </RoycoSpace>
 </template>
 
 <style scoped></style>

@@ -6,21 +6,7 @@ const removeQueryParams = function (to, from) {
 // 路由表
 const routes = [
   {
-    path: '/',
-    children: [
-      {
-        path: 'name',
-        components: {
-          default: () => import('@/components/UserName.vue'),
-        },
-      },
-      {
-        path: 'hobby',
-        components: {
-          default: () => import('@/components/UserHobby.vue'),
-        },
-      },
-    ],
+    path: "/",
   },
 ];
 
