@@ -33,30 +33,18 @@ const props = defineProps({
 
 const display = computed(() => (props.fill ? "flex" : "inline-flex"));
 
-const flexDirection = computed(() => {
-  switch (props.direction) {
-    case "horizontal":
-      return "row";
-    case "vertical":
-      return "column";
-    default:
-      return "horizontal";
-  }
-});
+const flexDirection = computed(() =>
+  props.direction === "vertical" ? "column" : "row"
+);
 
 const alignItems = computed(() => {
-  switch (props.align) {
-    case "satrt":
-      return "flex-start";
-    case "end":
-      return "flex-end";
-    case "center":
-      return "center";
-    case "baseline":
-      return "baseline";
-    default:
-      return "flex-start";
-  }
+  const alignMap = {
+    start: "flex-start",
+    end: "flex-end",
+    center: "center",
+    baseline: "baseline",
+  };
+  return alignMap[props.align] || "flex-start";
 });
 
 const flexWrap = computed(() => (props.wrap ? "wrap" : "nowrap"));

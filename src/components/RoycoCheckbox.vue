@@ -1,80 +1,57 @@
 <script setup>
-import { ref, watch } from "vue";
-
 const props = defineProps({
   modelValue: {
     type: Boolean,
-    default: () => null,
+    default: null,
   },
   defaultChecked: {
     type: Boolean,
-    default: () => false,
+    default: false,
   },
   value: {
     type: [String, Number],
   },
   disabled: {
     type: Boolean,
-    default: () => false,
+    default: false,
   },
   // 半选
   indeterminate: {
     type: Boolean,
-    default: () => false,
+    default: false,
   },
 });
 
 const emits = defineEmits(["update:modelValue", "change"]);
 
-const check = ref();
-const nowCheck = ref();
-
-// 判断是否有modelValue
-if (props.modelValue != null) {
-  nowCheck.value = props.modelValue;
-}
-
-const emitValue = (e) => {
+const changeHandle = (e) => {
+  emits("change", { checked: e.target.checked, value: props.value });
   emits("update:modelValue", e.target.checked);
-  check.value = e.target.checked;
 };
-
-const change = () => {
-  if (props.modelValue != null) {
-    nowCheck.value = props.modelValue;
-  } else {
-    nowCheck.value = check.value;
-  }
-  emits("change", [nowCheck.value, props.value]);
-};
-
-// 监听父级点击
-watch(props, () => {
-  nowCheck.value = props.modelValue;
-});
 </script>
 
 <template>
-  <div :class="{ disabled: disabled }">
+  <div>
     <div class="royco-checkbox">
       <input
         type="checkbox"
-        class="checkbox-ui"
+        class="checkbox-input"
         :checked="modelValue"
         :disabled="disabled"
-        @input="emitValue"
-        @change="change" />
+        @change="changeHandle" />
       <!-- box -->
       <div
-        class="ui-checkbox"
+        class="checkbox-box"
         :class="{
-          checked: nowCheck && !indeterminate,
-          indeterminate: nowCheck && indeterminate,
-          unchecked: !nowCheck,
+          checked: modelValue && !indeterminate,
+          indeterminate: modelValue && indeterminate,
+          unchecked: !modelValue,
           disabled: disabled,
         }"></div>
       <!-- box -->
-      <slot></slot>
+      <div class="checkbox-content">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -85,7 +62,7 @@ watch(props, () => {
   display: inline-flex;
   align-items: center;
   // input
-  .checkbox-ui {
+  .checkbox-input {
     position: absolute;
     top: 0;
     left: 0;
@@ -96,7 +73,7 @@ watch(props, () => {
     z-index: 1;
   }
   // box
-  .ui-checkbox {
+  .checkbox-box {
     position: relative;
     width: 18px;
     height: 18px;
@@ -159,23 +136,20 @@ watch(props, () => {
       border-color: $gray-200;
       background-color: $basics-white;
     }
-    &.disabled.checked {
-      border-color: $gray-300;
-      background-color: $gray-300;
-    }
+    &.disabled.checked,
     &.disabled.indeterminate {
       border-color: $gray-300;
       background-color: $gray-300;
     }
   }
 }
-// Actions
 
+// Actions
 .royco-checkbox {
   cursor: pointer;
   // hover
-  .checkbox-ui:hover {
-    & + .ui-checkbox:not(.disabled) {
+  .checkbox-input:hover {
+    & + .checkbox-box:not(.disabled) {
       &::after {
         opacity: 0.05;
       }
@@ -183,8 +157,8 @@ watch(props, () => {
   }
 
   // focus
-  .checkbox-ui:focus {
-    & + .ui-checkbox:not(.disabled) {
+  .checkbox-input:focus {
+    & + .checkbox-box:not(.disabled) {
       &::after {
         opacity: 0.08;
       }
