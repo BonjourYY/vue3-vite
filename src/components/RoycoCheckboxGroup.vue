@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import RoycoSpace from "./RoycoSpace.vue";
 import RoycoCheckbox from "./RoycoCheckbox.vue";
 
@@ -23,7 +23,7 @@ const selectedValues = ref([]);
 
 onMounted(() => {
   // 初始化选中的值
-  // checked 为 true ，选中的值
+  // options 中 选项 checked 为 true 的列表项的 value 值
   const array1 = props.options
     .filter((item) => item.checked === true)
     .map((item) => item.value);
@@ -44,6 +44,20 @@ const checkboxChangeHandler = ({ checked, value }) => {
   }
   emits("update:modelValue", selectedValues.value);
 };
+
+// 监听 options 和 modelValue 的变化
+watch(
+  () => [props.options, props.modelValue],
+  ([options, modelValue]) => {
+    const array1 = options
+      .filter((item) => item.checked === true)
+      .map((item) => item.value);
+    const array2 = modelValue;
+    selectedValues.value = Array.from(new Set([...array1, ...array2]));
+    emits("update:modelValue", selectedValues.value);
+  },
+  { deep: true }
+);
 
 // 根据选中的值，算出需要渲染的列表
 const selectedOptions = computed(() =>
