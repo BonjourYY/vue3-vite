@@ -12,3 +12,4 @@ TODO:
 - Taildwind.css
 - Cypress
 - Lodash
+- GSAP

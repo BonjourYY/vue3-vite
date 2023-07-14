@@ -1,21 +1,9 @@
 <script setup>
-import { ref } from "vue";
-import RoycoCheckboxGroup from "./components/RoycoCheckboxGroup.vue";
-import RoycoCheckbox from "./components/RoycoCheckbox.vue";
-
-const options = ref([
-  { value: "apple", label: "苹果", checked: true },
-  { value: "banana", label: "香蕉", checked: false },
-]);
-const result = ref(["apple"]);
-const result1 = ref(false);
+import RoycoPagination from "./components/RoycoPagination.vue";
 </script>
 
 <template>
-  <RoycoCheckboxGroup :options="options" v-model="result"></RoycoCheckboxGroup>
-  <RoycoCheckbox v-model="result1"></RoycoCheckbox>
-  {{ result }}
-  {{ result1 }}
+  <RoycoPagination :total="100" :show-total="true"></RoycoPagination>
 </template>
 
 <style scoped></style>
