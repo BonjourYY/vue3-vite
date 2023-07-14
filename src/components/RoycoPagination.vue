@@ -56,12 +56,10 @@ const selectPage = (e) => {
 
 // 点击 ... 按钮
 const updatePage = (delta) => {
-  currentPage.value += delta;
-  if (currentPage.value < 1) {
-    currentPage.value = 1;
-  } else if (currentPage.value > pages.value) {
-    currentPage.value = pages.value;
-  }
+  currentPage.value = Math.min(
+    Math.max(currentPage.value + delta, 1),
+    pages.value
+  );
   emits("pageData", {
     currentPage: currentPage.value,
   });
@@ -117,12 +115,12 @@ const downSwitch = (e) => {
           class="pgitem page"
           :class="{ currentPage: currentPage === 1 }"
           @click="selectPage(1)"
-          v-show="pages > 0">
+          v-if="pages > 0">
           1
         </p>
         <p
           class="pgitem more"
-          v-show="currentPage > 4 && pages > 6"
+          v-if="currentPage > 4 && pages > 6"
           @click="downMore(0)">
           ...
         </p>
@@ -130,40 +128,40 @@ const downSwitch = (e) => {
           class="pgitem page"
           :class="{ currentPage: currentPage == showPage() - 2 }"
           @click="selectPage(showPage() - 2)"
-          v-show="showPage() - 2 > 1">
+          v-if="showPage() - 2 > 1">
           {{ showPage() - 2 }}
         </p>
         <p
           class="pgitem page"
           :class="{ currentPage: currentPage == showPage() - 1 }"
           @click="selectPage(showPage() - 1)"
-          v-show="showPage() - 1 < pages">
+          v-if="showPage() - 1 < pages">
           {{ showPage() - 1 }}
         </p>
         <p
           class="pgitem page"
           :class="{ currentPage: currentPage == showPage() }"
           @click="selectPage(showPage())"
-          v-show="showPage() < pages">
+          v-if="showPage() < pages">
           {{ showPage() }}
         </p>
         <p
           class="pgitem page"
           :class="{ currentPage: currentPage == showPage() + 1 }"
           @click="selectPage(showPage() + 1)"
-          v-show="showPage() + 1 < pages">
+          v-if="showPage() + 1 < pages">
           {{ showPage() + 1 }}
         </p>
         <p
           class="pgitem page"
           :class="{ currentPage: currentPage == showPage() + 2 }"
           @click="selectPage(showPage() + 2)"
-          v-show="showPage() + 2 < pages">
+          v-if="showPage() + 2 < pages">
           {{ showPage() + 2 }}
         </p>
         <p
           class="pgitem more"
-          v-show="currentPage < pages - 3 && pages > 6"
+          v-if="currentPage < pages - 3 && pages > 6"
           @click="downMore(1)">
           ...
         </p>
@@ -171,11 +169,11 @@ const downSwitch = (e) => {
           class="pgitem page"
           :class="{ currentPage: currentPage === pages }"
           @click="selectPage(pages)"
-          v-show="pages > 1">
+          v-if="pages > 1">
           {{ pages }}
         </p>
       </div>
-      <div class="simples" v-if="simple"></div>
+      <div class="simples" v-else></div>
       <div
         class="icon right"
         :class="{ disabled: currentPage === pages }"
