@@ -2,16 +2,11 @@
 const props = defineProps({
   modelValue: {
     type: Boolean,
-    default: false,
-  },
-  defaultChecked: {
-    type: Boolean,
-    default: false,
+    default: null,
   },
   value: {
     type: [String, Number],
   },
-  // 是否禁用
   disabled: {
     type: Boolean,
     default: false,
@@ -58,6 +53,8 @@ const changeHandle = (e) => {
 </template>
 
 <style lang="scss" scoped>
+@import "@/style/variables.scss";
+
 .royco-checkbox {
   position: relative;
   display: inline-flex;

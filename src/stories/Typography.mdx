@@ -1,0 +1,83 @@
+{/* Typography.mdx */}
+
+import {
+  Meta,
+  Typeset,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+} from "@storybook/blocks";
+
+import * as TypographyStories from "./Typography/Typography.stories";
+
+<Meta of={TypographyStories} />
+
+export const typography = {
+  type: {
+    primary: "Inter, Heebo, Arial, sans-serif",
+  },
+  weight: {
+    medium: "500",
+    semibold: "600",
+    bold: "700",
+  },
+  size: {
+    headline1: 93,
+    headline2: 58,
+    headline3: 46,
+    headline4: 32,
+    headline5: 24,
+    headline6: 18,
+    subtitle1: 16,
+    subtitle2: 14,
+    body1: 16,
+    body2: 14,
+    button: 14,
+    assistive1: 12,
+    assistive2: 10,
+  },
+};
+
+export const SampleText = "The library for web and native user interfaces";
+
+# Typography
+
+**Font:** "Inter, Heebo, Arial, sans-serif"
+
+**Weights:** 500(medium), 600(semibold), 700(bold)
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.headline1),
+    Number(typography.size.headline2),
+    Number(typography.size.headline3),
+    Number(typography.size.headline4),
+    Number(typography.size.headline5),
+    Number(typography.size.headline6),
+    Number(typography.size.subtitle1),
+    Number(typography.size.subtitle2),
+    Number(typography.size.body1),
+    Number(typography.size.body2),
+    Number(typography.size.button),
+    Number(typography.size.assistive1),
+    Number(typography.size.assistive2),
+  ]}
+  fontWeight={typography.weight.medium}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
+
+<Title />
+
+<Subtitle />
+
+<Description />
+
+<Primary />
+
+<Controls />
+
+<Stories />

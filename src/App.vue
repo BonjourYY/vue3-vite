@@ -1,9 +1,12 @@
 <script setup>
-import RoycoPagination from "./components/RoycoPagination.vue";
+import RoycoSpace from "./components/RoycoSpace.vue";
 </script>
 
 <template>
-  <RoycoPagination :total="100" :show-total="true"></RoycoPagination>
+  <RoycoSpace>
+    <p>123</p>
+    <p>456</p>
+  </RoycoSpace>
 </template>
 
 <style scoped></style>

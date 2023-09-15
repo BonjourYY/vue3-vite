@@ -13,3 +13,4 @@ TODO:
 - Cypress
 - Lodash
 - GSAP
+- CSS Animation
